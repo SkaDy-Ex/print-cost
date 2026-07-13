@@ -114,9 +114,9 @@
       const record = {
         time: new Date().toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }),
         timeH: `${h}ч ${m}мин`,
-        plastic: grams,
+        grams: grams,
+        plasticCost: plasticCost.toFixed(2), // ← стоимость в рублях
         elCost: elCost.toFixed(2),
-        plasticCost: plasticCost.toFixed(2),
         total: total.toFixed(2),
         depr: (depr * totalH).toFixed(2),
         service: (service * totalH).toFixed(2)
@@ -146,7 +146,7 @@
           </div>
           <div class="history-details">
             <span class="history-tag">⏱️ ${r.timeH}</span>
-            <span class="history-tag">📦 ${r.plastic}г</span>
+            <span class="history-tag">📦 ${r.plasticCost}₽</span>
             <span class="history-tag">⚡ ${r.elCost}₽</span>
             <span class="history-tag">🛡️ ${r.depr}₽</span>
             <span class="history-tag">🔧 ${r.service}₽</span>
