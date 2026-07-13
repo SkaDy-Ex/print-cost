@@ -32,6 +32,7 @@
       </div>
     </div>
 
+    <div class="form-row"><label>📝 Название детали</label><input type="text" id="partName" placeholder="Расчёт детали" style="text-transform: capitalize;"></div>
     <h2 class="section-title">⚙️ Данные для расчёта</h2>
     <div class="form-row"><label>⏱️ Время (часы)</label><input type="number" id="h" value="0" min="1" step="1"></div>
     <div class="form-row"><label>⏱️ Время (минуты)</label><input type="number" id="m" value="0" min="30" max="59" step="1"></div>
@@ -82,6 +83,7 @@
         return;
       }
 
+      const partName = document.getElementById('partName').value.trim() || 'Расчёт детали';
       const priceElectricity = parseFloat(document.getElementById('priceElectricity').value) || 0;
       const power = parseFloat(document.getElementById('power').value) || 0;
       const grams = parseFloat(document.getElementById('grams').value) || 0;
@@ -115,6 +117,7 @@
         time: new Date().toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }),
         timeH: `${h}ч ${m}мин`,
         grams: grams,
+        partName: partName,
         plasticCost: plasticCost.toFixed(2), // ← стоимость в рублях
         elCost: elCost.toFixed(2),
         total: total.toFixed(2),
@@ -145,6 +148,7 @@
             <div class="history-total">${formatRUB(parseFloat(r.total))}</div>
           </div>
           <div class="history-details">
+            <span class="history-tag">📝 ${r.partName}</span>
             <span class="history-tag">⏱️ ${r.timeH}</span>
             <span class="history-tag">📦 ${r.plasticCost}₽</span>
             <span class="history-tag">⚡ ${r.elCost}₽</span>
