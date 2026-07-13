@@ -155,9 +155,22 @@
             <span class="history-tag">⚡ ${r.elCost}₽</span>
             <span class="history-tag">🛡️ ${r.depr}₽</span>
             <span class="history-tag">🔧 ${r.service}₽</span>
+            <span class="history-tag" style="margin-left: auto;">${r.partName}</span>
+            <span class="history-delete" data-index="${i}">❌</span>
           </div>
         </div>
       `).join('');
+       // ——— НОВОЕ: Обработчик клика по удалению ———
+      list.querySelectorAll('.history-delete').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = parseInt(btn.dataset.index);
+          const history = get();
+          if (confirm(`Удалить запись от ${history[index].time}?`)) {
+            history.splice(index, 1); // удалить одну запись
+            save(history);
+          }
+        });
+      });
     }
 
     function clearHistory() {
