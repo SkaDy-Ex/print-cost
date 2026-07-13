@@ -4,8 +4,8 @@
   --bg-card: rgba(30, 41, 59, 0.85);
   --text-main: #f1f5f9;
   --text-secondary: #94a3b8;
-  --primary: #ff00d9
-  --primary-glow: rgba(235, 0, 255, 0.5);
+  --primary: #38bdf8;
+  --primary-glow: rgba(56, 189, 248, 0.3);
   --success: #4ade80;
   --danger: #f87171;
   --warning: #fbbf24;
@@ -16,17 +16,20 @@
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+html, body {
+  background-color: #0f172a;
+}
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  background-attachment: fixed;
+  /* background-attachment: fixed; — закомментировал, если нужен плавный скролл */
   color: var(--text-main);
   padding: 24px 16px;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  overscroll-behavior: contain; /* ← новая строка */
 }
 
 body::before {
