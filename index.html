@@ -145,7 +145,7 @@
         return;
       }
 
-      list.innerHTML = history.map(r, index) => `
+      list.innerHTML = history.map((r, index) => ` // ← скобки вокруг (r, index) ОБЯЗАТЕЛЬНЫ
         <div class="history-card">
           <div class="history-header-row">
             <div class="history-time">🕒 ${r.time}</div>
