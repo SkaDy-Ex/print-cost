@@ -111,6 +111,7 @@
       document.getElementById('elCost').textContent = formatRUB(elCost);
       document.getElementById('plasticCost').textContent = formatRUB(plasticCost);
       document.getElementById('deprService').textContent = formatRUB((depr + service) * totalH);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // ✅ Сохраняем итог амортизации/обслуживания за всё время
       const record = {
