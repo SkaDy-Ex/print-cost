@@ -169,6 +169,13 @@ h1 {
 .breakdown-item:nth-child(2)::before { background: linear-gradient(90deg, var(--success), transparent); }
 .breakdown-item:last-child::before { background: linear-gradient(90deg, var(--warning), transparent); }
 
+.breakdown-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  text-align: center;
+}
+
 .breakdown-icon {
   font-size: 1.5em;
   margin-bottom: 8px;
