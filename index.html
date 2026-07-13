@@ -35,7 +35,7 @@
     <h2 class="section-title">⚙️ Данные для расчёта</h2>
     <div class="form-row"><label>⏱️ Время (часы)</label><input type="number" id="h" value="0" min="1" step="1"></div>
     <div class="form-row"><label>⏱️ Время (минуты)</label><input type="number" id="m" value="0" min="30" max="59" step="1"></div>
-    <div class="form-row"><label>⚡ Цена эл-ва (₽/кВт·ч)</label><<input type="number" id="priceElectricity" value="3.0" step="0.1"></div>
+    <div class="form-row"><label>⚡ Цена эл-ва (₽/кВт·ч)</label><input type="number" id="priceElectricity" value="3.0" step="0.1"></div>
     <div class="form-row"><label>🔌 Мощность (Вт)</label><input type="number" id="power" value="250" step="10"></div>
     <div class="form-row"><label>🧱 Пластик (г)</label><input type="number" id="grams" value="10" step="1"></div>
     <div class="form-row"><label>💰 Стоимость пластика/кг (₽)</label><input type="number" id="plasticPrice" value="1500" step="10"></div>
@@ -44,7 +44,6 @@
 
     <div class="actions">
       <button class="btn btn-primary" onclick="calculate()">📊 Рассчитать</button>
-      <button class="btn btn-secondary" onclick="exportCSV()">📤 Экспорт в CSV</button>
       <button class="btn btn-danger" onclick="clearHistory()">❌ Очистить</button>
     </div>
 
@@ -57,9 +56,6 @@
     </div>
 
     <footer>
-      <label class="theme-toggle" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span> Переключить тему
-      </label>
       <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 12px;">
         © 2024 3D Print Cost Pro | Все данные хранятся на устройстве
       </div>
@@ -78,21 +74,32 @@
     }
     
     function calculate() {
+      // ❌ Запрет при 0 часов и 0 минут
       const h = parseFloat(document.getElementById('h').value) || 0;
       const m = parseFloat(document.getElementById('m').value) || 0;
+      if (h === 0 && m === 0) {
+        alert('⚠️ Укажите время печати. Минимум: 1 час или 30 минут.');
+        return;
+      }
+
       const priceElectricity = parseFloat(document.getElementById('priceElectricity').value) || 0;
       const power = parseFloat(document.getElementById('power').value) || 0;
       const grams = parseFloat(document.getElementById('grams').value) || 0;
-      const price = parseFloat(document.getElementById('plasticPrice').value) || 0;
+      const plasticPrice = parseFloat(document.getElementById('plasticPrice').value) || 0;
       const depr = parseFloat(document.getElementById('depr').value) || 0;
       const service = parseFloat(document.getElementById('service').value) || 0;
-      
+
       const totalH = h + m / 60;
       const elCost = totalH * (power / 1000) * priceElectricity;
       const plasticCost = grams / 1000 * plasticPrice;
-      // Амортизация и обслуживание — по часам
       const total = elCost + plasticCost + (depr + service) * totalH;
-            
+
+      // ✅ Проверка на NaN
+      if (isNaN(total) || isNaN(elCost) || isNaN(plasticCost)) {
+        alert('Ошибка: проверьте все поля ввода. Они должны содержать числа.');
+        return;
+      }
+
       const resultValue = document.getElementById('resultValue');
       resultValue.textContent = formatRUB(total);
       resultValue.classList.remove('pulse');
@@ -101,19 +108,20 @@
 
       document.getElementById('elCost').textContent = formatRUB(elCost);
       document.getElementById('plasticCost').textContent = formatRUB(plasticCost);
-      document.getElementById('deprService').textContent = formatRUB(depr + service);
+      document.getElementById('deprService').textContent = formatRUB((depr + service) * totalH);
 
-       const record = {
+      // ✅ Сохраняем итог амортизации/обслуживания за всё время
+      const record = {
         time: new Date().toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }),
         timeH: `${h}ч ${m}мин`,
         plastic: grams,
         elCost: elCost.toFixed(2),
         plasticCost: plasticCost.toFixed(2),
         total: total.toFixed(2),
-        depr: (depr * totalH).toFixed(2),     // ← итог за время
-        service: (service * totalH).toFixed(2) // ← итог за время
+        depr: (depr * totalH).toFixed(2),
+        service: (service * totalH).toFixed(2)
       };
-      
+
       const history = get();
       history.unshift(record);
       if (history.length > 50) history.pop();
@@ -169,29 +177,6 @@
 
         render();
       }
-    }
-
-    function exportCSV() {
-      const history = get();
-      if (!history.length) {
-        alert('Нет данных для экспорта.');
-        return;
-      }
-
-      let csv = 'Дата,Время,Пластик (г),Эл-во (₽),Пластик (₽),Амортизация (₽),Обслуживание (₽),Итог (₽)\r\n';
-      history.forEach(r => {
-        csv += `"${r.time}","${r.timeH}",${r.plastic},${r.elCost},${r.plasticCost},${r.depr},${r.service},${r.total}\r\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', '3d_print_history.csv');
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     }
 
     function toggleTheme() {
