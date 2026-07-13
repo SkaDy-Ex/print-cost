@@ -145,14 +145,14 @@
     </div>
 
     <h2 class="section-title">⚙️ Данные для расчёта</h2>
-    <div class="form-row"><label>⏱️ Время (часы)</label><input type="number" id="h" value="0" min="0" step="1"></div>
-    <div class="form-row"><label>⏱️ Время (минуты)</label><input type="number" id="m" value="0" min="0" max="59" step="1"></div>
-    <div class="form-row"><label>⚡ Цена эл-ва (₽/кВт·ч)</label><<input type="number" id="priceElectricity" value="5.0" step="0.1"></div>
-    <div class="form-row"><label>🔌 Мощность (Вт)</label><input type="number" id="power" value="200" step="10"></div>
-    <div class="form-row"><label>🧱 Пластик (г)</label><input type="number" id="grams" value="100" step="1"></div>
-    <div class="form-row"><label>💰 Стоимость пластика/кг (₽)</label><input type="number" id="plasticPrice" value="250" step="10"></div>
-    <div class="form-row"><label>🛡️ Амортизация (₽)</label><input type="number" id="depr" value="0" step="10"></div>
-    <div class="form-row"><label>🔧 Обслуживание (₽)</label><input type="number" id="service" value="0" step="10"></div>
+    <div class="form-row"><label>⏱️ Время (часы)</label><input type="number" id="h" value="0" min="1" step="1"></div>
+    <div class="form-row"><label>⏱️ Время (минуты)</label><input type="number" id="m" value="0" min="30" max="59" step="1"></div>
+    <div class="form-row"><label>⚡ Цена эл-ва (₽/кВт·ч)</label><<input type="number" id="priceElectricity" value="3.0" step="0.1"></div>
+    <div class="form-row"><label>🔌 Мощность (Вт)</label><input type="number" id="power" value="250" step="10"></div>
+    <div class="form-row"><label>🧱 Пластик (г)</label><input type="number" id="grams" value="10" step="1"></div>
+    <div class="form-row"><label>💰 Стоимость пластика/кг (₽)</label><input type="number" id="plasticPrice" value="1500" step="10"></div>
+    <div class="form-row"><label>🛡️ Амортизация (₽)</label><input type="number" id="depr" value="6" step="10"></div>
+    <div class="form-row"><label>🔧 Обслуживание (₽)</label><input type="number" id="service" value="5" step="10"></div>
 
     <div class="actions">
       <button class="btn btn-primary" onclick="calculate()">📊 Рассчитать</button>
@@ -201,9 +201,10 @@
       
       const totalH = h + m / 60;
       const elCost = totalH * (power / 1000) * priceElectricity;
-      const plasticCost = grams / 1000 * price;
-      const total = elCost + plasticCost + depr + service;
-      
+      const plasticCost = grams / 1000 * plasticPrice;
+      // Амортизация и обслуживание — по часам
+      const total = elCost + plasticCost + (depr + service) * totalH;
+            
       const resultValue = document.getElementById('resultValue');
       resultValue.textContent = formatRUB(total);
       resultValue.classList.remove('pulse');
@@ -262,22 +263,22 @@
       if (confirm('Удалить всю историю? Это действие необратимо.')) {
         localStorage.removeItem(STORAGE_KEY);
         
-        // Сброс полей ввода (не обязательно, но полезно)
+        // Обнулить поля ввода (с новыми значениями по умолчанию)
         document.getElementById('h').value = 0;
         document.getElementById('m').value = 0;
-        document.getElementById('电价').value = 5.0;
-        document.getElementById('power').value = 200;
-        document.getElementById('grams').value = 100;
-        document.getElementById('plasticPrice').value = 250;
-        document.getElementById('depr').value = 0;
-        document.getElementById('service').value = 0;
-    
-        // Сброс результатов
+        document.getElementById('priceElectricity').value = 3.0;  // ← обновлено
+        document.getElementById('power').value = 250;             // ← 0.25 кВт
+        document.getElementById('grams').value = 10;
+        document.getElementById('plasticPrice').value = 1500;     // ← обновлено
+        document.getElementById('depr').value = 6;                // ← 6 ₽/час
+        document.getElementById('service').value = 5;             // ← 5 ₽/час
+
+        // Сброс отображения
         document.getElementById('resultValue').textContent = '0,00 ₽';
         document.getElementById('elCost').textContent = '0.00 ₽';
         document.getElementById('plasticCost').textContent = '0.00 ₽';
         document.getElementById('deprService').textContent = '0.00 ₽';
-    
+
         render();
       }
     }
