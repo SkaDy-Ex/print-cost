@@ -103,16 +103,16 @@
       document.getElementById('plasticCost').textContent = formatRUB(plasticCost);
       document.getElementById('deprService').textContent = formatRUB(depr + service);
 
-      const record = {
-      time: new Date().toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }),
-      timeH: `${h}ч ${m}мин`,
-      plastic: grams,
-      elCost: elCost.toFixed(2),   // строка (для отображения)
-      plasticCost: plasticCost.toFixed(2),
-      total: total.toFixed(2),
-      depr: depr.toFixed(2),        // ✅ добавлено напрямую
-      service: service.toFixed(2)   // ✅ добавлено напрямую
-    };
+       const record = {
+        time: new Date().toLocaleString('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }),
+        timeH: `${h}ч ${m}мин`,
+        plastic: grams,
+        elCost: elCost.toFixed(2),
+        plasticCost: plasticCost.toFixed(2),
+        total: total.toFixed(2),
+        depr: (depr * totalH).toFixed(2),     // ← итог за время
+        service: (service * totalH).toFixed(2) // ← итог за время
+      };
       
       const history = get();
       history.unshift(record);
