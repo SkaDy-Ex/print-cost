@@ -4,8 +4,8 @@
   --bg-card: rgba(30, 41, 59, 0.85);
   --text-main: #f1f5f9;
   --text-secondary: #94a3b8;
-  --primary: #64748b;      /* тёмно-серый */
-  --primary-glow: rgba(100, 116, 139, 0.3); /* тёмно-серый */
+  --primary: #ff00d9
+  --primary-glow: rgba(235, 0, 255, 0.5);
   --success: #4ade80;
   --danger: #f87171;
   --warning: #fbbf24;
