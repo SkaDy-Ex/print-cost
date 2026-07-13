@@ -1,0 +1,87 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Калькулятор 3D-печати</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f0f4ff; margin: 0; }
+    h1 { text-align: center; color: #2d3748; }
+    .row { display: flex; margin: 10px 0; align-items: center; gap: 10px; }
+    label { flex: 0 0 140px; font-weight: 600; }
+    input { flex: 1; padding: 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 16px; }
+    button { background: #4a69fa; color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #3a59d9; }
+    #result { 
+      margin-top: 20px; padding: 15px; background: white; 
+      border-radius: 10px; text-align: center; font-size: 1.2em; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-left: 5px solid #4a69fa;
+    }
+    .history { margin-top: 30px; border-top: 2px solid #e2e8f0; padding-top: 20px; }
+    .history-item { 
+      background: white; padding: 10px; margin: 6px 0; 
+      border-radius: 8px; font-size: 0.95em; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .empty { text-align: center; color: #718096; font-style: italic; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>🖨️ Себестоимость 3D-печати</h1>
+  <div id="result">Рассчитай первую модель!</div>
+
+  <div class="row"><label>Время (часы):</label><input type="number" id="h" value="0" min="0"></div>
+  <div class="row"><label>Время (минуты):</label><input type="number" id="m" value="0" min="0" max="59"></div>
+  <div class="row"><label>Цена эл-ва (₽/кВт·ч):</label><input type="number" id="电价" value="5.0" step="0.1"></div>
+  <div class="row"><label>Мощность (Вт):</label><input type="number" id="power" value="200" step="10"></div>
+  <div class="row"><label>Пластик (г):</label><input type="number" id="grams" value="100" step="1"></div>
+  <div class="row"><label>Пластик/кг (₽):</label><input type="number" id="plasticPrice" value="250" step="10"></div>
+  <div class="row"><label>Амортизация (₽):</label><input type="number" id="depr" value="0"></div>
+  <div class="row"><label>Обслуживание (₽):</label><input type="number" id="service" value="0"></div>
+  
+  <div style="text-align:center; margin:20px 0">
+    <button onclick="calculate()">Рассчитать</button>
+    <button onclick="clearHistory()" style="background:#e53e3e; margin-left:10px">Очистить историю</button>
+  </div>
+
+  <div class="history">
+    <h3>История (<span id="count">0</span>)</h3>
+    <div id="historyList" class="empty">История пуста</div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'printCost';
+    function get() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+    function save(h) { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); render(); }
+    function render() {
+      const list = document.getElementById('historyList'), h = get();
+      document.getElementById('count').textContent = h.length;
+      list.innerHTML = h.length 
+        ? h.map(r => `<div class="history-item">[${r.time}] ${r.timeH} | 💰 ${r.total}₽</div>`).join('')
+        : '<div class="empty">Пока нет записей</div>';
+    }
+    function calculate() {
+      const h = parseFloat(document.getElementById('h').value) || 0;
+      const m = parseFloat(document.getElementById('m').value) || 0;
+      const电价 = parseFloat(document.getElementById('电价').value) || 0;
+      const power = parseFloat(document.getElementById('power').value) || 0;
+      const grams = parseFloat(document.getElementById('grams').value) || 0;
+      const price = parseFloat(document.getElementById('plasticPrice').value) || 0;
+
+      const totalH = h + m / 60;
+      const elCost = totalH * (power / 1000) *电价;
+      const plasticCost = grams / 1000 * price;
+      const total = elCost + plasticCost + parseFloat(document.getElementById('depr').value) + parseFloat(document.getElementById('service').value);
+
+      document.getElementById('result').innerHTML = `Итоговая себестоимость: <b>${total.toFixed(2)} ₽</b><br><small>Эл-во: ${elCost.toFixed(2)}₽ | Пластик: ${plasticCost.toFixed(2)}₽</small>`;
+      
+      const record = { time: new Date().toLocaleString(), timeH: `${h}ч ${m}мин`, total: total.toFixed(2) };
+      const history = get(); history.unshift(record); if (history.length > 50) history.pop();
+      save(history);
+    }
+    function clearHistory() { if(confirm('Удалить всё?')) { localStorage.removeItem(STORAGE_KEY); render(); } }
+    render();
+  </script>
+</body>
+</html>
