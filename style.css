@@ -4,8 +4,8 @@
   --bg-card: rgba(30, 41, 59, 0.85);
   --text-main: #f1f5f9;
   --text-secondary: #94a3b8;
-  --primary: #38bdf8;
-  --primary-glow: rgba(56, 189, 248, 0.3);
+  --primary: #64748b;      /* тёмно-серый */
+  --primary-glow: rgba(100, 116, 139, 0.3); /* тёмно-серый */
   --success: #4ade80;
   --danger: #f87171;
   --warning: #fbbf24;
@@ -26,6 +26,7 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  overscroll-behavior: contain; /* ← новая строка */
 }
 
 body::before {
