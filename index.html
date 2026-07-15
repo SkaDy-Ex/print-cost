@@ -139,45 +139,70 @@
     }
 
      function render() {
-      const list = document.getElementById('historyList');
-      const history = get();
-      document.getElementById('historyCount').textContent = history.length;
+    const list = document.getElementById('historyList');
+    const history = get();
+    document.getElementById('historyCount').textContent = history.length;
 
-      if (!history.length) {
-        list.innerHTML = '<div class="empty">История пуста. Рассчитай первую модель! 🚀</div>';
-        return;
-      }
+    if (!history.length) {
+      list.innerHTML = '<div class="empty">История пуста. Рассчитай первую модель! 🚀</div>';
+      return;
+    }
 
-      list.innerHTML = history.map((r, index) => ` 
-        <div class="history-card">
-          <div class="history-header-row">
-            <div class="history-time">🕒 ${r.time}</div>
-            <div class="history-total">${formatRUB(parseFloat(r.total))}</div>
+    list.innerHTML = history.map((r, index) => `
+      <div class="history-card">
+        <div class="history-header-row">
+          <div class="history-time">🕒 ${r.time}</div>
+          <div class="history-total">${formatRUB(parseFloat(r.total))}</div>
+        </div>
+
+        <div class="history-details">
+          <div class="history-row">
+            <span class="label">📝 Наименование: ${r.partName}</span>
           </div>
-          <div class="history-details">
-            <span class="history-tag">📝 ${r.partName}</span>
-            <span class="history-tag">⏱️ ${r.timeH}</span>
-            <span class="history-tag">📦 ${r.plasticCost}₽</span>
-            <span class="history-tag">⚡ ${r.elCost}₽</span>
-            <span class="history-tag">🛡️ ${r.depr}₽</span>
-            <span class="history-tag">🔧 ${r.service}₽</span>
 
-            <span class="history-delete" data-index="${index}">❌</span>
+          <div class="history-row">
+            <span class="label">🕒 Время печати: </span>
+            <span class="value">${r.timeH}</span>
+          </div>
+
+          <div class="history-row">
+            <span class="label">📦 Пластик: ${r.grams}г</span>
+            <span class="value">${formatRUB(parseFloat(r.plasticCost))}</span>
           </div>
         </div>
-      `).join('');
-       // ——— НОВОЕ: Обработчик клика по удалению ———
-      list.querySelectorAll('.history-delete').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const index = parseInt(btn.dataset.index);
-          const history = get();
-          if (confirm(`Удалить запись от ${history[index].time}?`)) {
-            history.splice(index, 1); // удалить одну запись
-            save(history);
-          }
-        });
+
+        <div class="history-breakdown-row">
+          <span class="history-breakdown-item">
+            <span>⚡</span>
+            <span>Электричество:</span>
+            <span>${formatRUB(parseFloat(r.elCost))}</span>
+          </span>
+          <span class="history-breakdown-item">
+            <span>🛡️</span>
+            <span>Амортизация:</span>
+            <span>${formatRUB(parseFloat(r.depr))}</span>
+          </span>
+          <span class="history-breakdown-item">
+            <span>🔧</span>
+            <span>Обслуживание:</span>
+            <span>${formatRUB(parseFloat(r.service))}</span>
+          </span>
+          <span class="history-delete" data-index="${index}">❌</span>
+        </div>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.history-delete').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.dataset.index);
+        const history = get();
+        if (confirm(`Удалить запись от ${history[index].time}?`)) {
+          history.splice(index, 1);
+          save(history);
+        }
       });
-    }
+    });
+  }
 
     function clearHistory() {
       if (confirm('Удалить всю историю? Это действие необратимо.')) {
