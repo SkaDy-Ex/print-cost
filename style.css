@@ -590,4 +590,47 @@ footer {
     padding: 14px 20px;
     font-size: 1rem;
   }
+
+  /* История: "электричество — амортизация — обслуживание" — в одну строку */
+  .history-breakdown-row {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    width: 100%;
+    padding: 4px 0;
+  }
+
+  .history-breakdown-item {
+    flex: 0 1 auto;
+    min-width: 85px;
+    text-align: left;
+    padding: 2px 4px;
+    border-radius: 6px;
+    background: rgba(15, 23, 42, 0.3);
+  }
+
+  .history-breakdown-item span:last-child {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+    display: inline-block;
+  }
+
+  .history-delete {
+    flex: 0 0 auto;
+    margin-left: auto;
+    margin-top: 4px;
+    font-size: 1.1rem;
+    padding: 2px 8px;
+  }
+
+  /* Оптимизируем отступы для маленьких экранов */
+  .history-card {
+    padding: 14px 16px;
+  }
+
 }
