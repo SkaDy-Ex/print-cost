@@ -496,16 +496,17 @@ footer {
   100% { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
 }
 
+/* ——— Адаптивность для мобильных ——— */
 @media (max-width: 480px) {
   .container { padding: 0 12px; }
   h1 { font-size: 1.9rem; }
-  .result-value { font-size: 2.8rem; }
 
+  /* Формы */
   .form-row {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 10px;
-    gap: 6px; /* ← минимальное расстояние */
+    margin-bottom: 12px;
+    gap: 6px;
   }
 
   label {
@@ -522,6 +523,71 @@ footer {
     padding: 10px 14px;
   }
 
-  .breakdown { flex-direction: column; }
-  .breakdown-item { width: 100%; }
+  /* Разбивка (breakdown) — вертикально на мобильных */
+  .breakdown {
+    flex-direction: column;
+  }
+
+  .breakdown-item {
+    width: 100%;
+  }
+
+  /* История — переписываем под мобильный */
+  .history-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .history-time {
+    font-size: 0.85rem;
+  }
+
+  .history-total {
+    font-size: 1.2rem;
+  }
+
+  .history-details {
+    gap: 6px;
+  }
+
+  .history-row {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.88rem;
+  }
+
+  /* История: "электричество — амортизация — обслуживание" — в одну строку */
+  .history-breakdown-row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    width: 100%;
+  }
+
+  .history-breakdown-item {
+    flex: 1;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  .history-delete {
+    margin-left: auto;
+    margin-top: 4px;
+  }
+
+  .history-footer-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+  }
+
+  /* Кнопки — шире */
+  .btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
 }
