@@ -1,30 +1,35 @@
-/* style.css — Dark Tech Design for 3D Print Cost Pro */
+/* style.css — Light Tech Design for 3D Print Cost Pro */
+
+/* ——— Переменные ——— */
 :root {
-  --bg-dark: #0f172a;
-  --bg-card: rgba(30, 41, 59, 0.85);
-  --text-main: #f1f5f9;
-  --text-secondary: #94a3b8;
-  --primary: #ff00f0;
-  --primary-glow: rgba(250, 55, 230, 0.5);
-  --success: #4ade80;
-  --danger: #f87171;
-  --warning: #fbbf24;
-  --border: rgba(55, 65, 81, 0.5);
+  --bg-dark: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --primary: #ec4899;
+  --primary-glow: rgba(236, 72, 153, 0.25);
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --border: rgba(148, 163, 184, 0.25);
   --radius: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
+/* ——— Базовые стили ——— */
 html, body {
-  background-color: #0f172a;
+  background-color: #f8fafc;
 }
 
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  /* background-attachment: fixed; — закомментировал, если нужен плавный скролл */
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
   color: var(--text-main);
   padding: 24px 16px;
   min-height: 100vh;
@@ -39,12 +44,13 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #020617 100%);
-  opacity: 0.15;
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%);
+  opacity: 0.5;
   z-index: -1;
   pointer-events: none;
 }
 
+/* ——— Контейнер ——— */
 .container {
   max-width: 620px;
   margin: 0 auto;
@@ -52,25 +58,7 @@ body::before {
   z-index: 2;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 20px 0;
-}
-
-h1 {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.03em;
-  background: linear-gradient(90deg, var(--primary), #60a5fa);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  position: relative;
-  display: inline-block;
-}
-
+/* ——— Заголовки и субтитры ——— */
 .subtitle {
   font-size: 1.05rem;
   color: var(--text-secondary);
@@ -79,15 +67,26 @@ h1 {
   letter-spacing: 0.01em;
 }
 
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  background: linear-gradient(90deg, #db2777, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
+}
+
+/* ——— Карточка результата ——— */
 .result-card {
   background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius);
   padding: 40px 28px;
   text-align: center;
   border: 1px solid var(--border);
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.4), 0 10px 10px -5px rgba(0,0,0,0.2);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.05);
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
@@ -107,10 +106,12 @@ h1 {
 .result-value {
   font-size: 3.2rem;
   font-weight: 800;
-  color: var(--text-main);
   line-height: 1.1;
   margin-bottom: 12px;
-  position: relative;
+  background: linear-gradient(90deg, #db2777, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .result-value::first-letter {
@@ -123,6 +124,7 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+/* ——— Разбивка (электричество, пластик, амортизация) ——— */
 .breakdown {
   display: flex;
   justify-content: space-between;
@@ -133,8 +135,7 @@ h1 {
 
 .breakdown-item {
   flex: 1;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
+  background: #f8fafc;
   border-radius: 14px;
   padding: 18px 16px;
   font-size: 0.9rem;
@@ -151,8 +152,8 @@ h1 {
 
 .breakdown-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 12px rgba(0,0,0,0.3);
-  background: rgba(30, 41, 59, 0.9);
+  background: #f1f5f9;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
 
 .breakdown-item::before {
@@ -187,11 +188,12 @@ h1 {
 .breakdown-icon:last-child { color: var(--warning); }
 
 .breakdown-value {
+  color: #1e293b;
   font-weight: 600;
-  color: var(--text-main);
   font-size: 1.1rem;
 }
 
+/* ——— Разделитель заголовков ——— */
 .section-title {
   font-size: 1.2rem;
   font-weight: 700;
@@ -204,6 +206,7 @@ h1 {
   border-bottom: 1px solid var(--border);
 }
 
+/* ——— Формы ——— */
 .form-row {
   display: flex;
   align-items: center;
@@ -225,10 +228,10 @@ input {
   min-width: 120px;
   padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid var(--border);
   font-size: 1.0rem;
   outline: none;
-  background: rgba(15, 23, 42, 0.7);
+  background: #f8fafc;
+  border: 1px solid var(--border);
   color: var(--text-main);
   transition: var(--transition);
 }
@@ -236,6 +239,7 @@ input {
 input:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 4px var(--primary-glow);
+  background: #ffffff;
 }
 
 input::placeholder { color: var(--text-secondary); }
@@ -244,6 +248,7 @@ input::-webkit-inner-spin-button {
   opacity: 1;
 }
 
+/* ——— Кнопки ——— */
 .actions {
   margin: 40px 0;
   display: flex;
@@ -269,26 +274,15 @@ input::-webkit-inner-spin-button {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--primary), #60a5fa);
+  background: linear-gradient(90deg, var(--primary), #3b82f6);
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
   color: white;
-  box-shadow: 0 4px 6px rgba(56, 189, 248, 0.2);
 }
 
 .btn-primary:hover {
   background: linear-gradient(90deg, #60a5fa, var(--primary));
   transform: translateY(-2px);
-  box-shadow: 0 8px 12px rgba(56, 189, 248, 0.3);
-}
-
-.btn-secondary {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-}
-
-.btn-secondary:hover {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: var(--text-secondary);
+  box-shadow: 0 8px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-danger {
@@ -304,6 +298,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 0 4px 6px rgba(248, 113, 113, 0.3);
 }
 
+/* ——— История ——— */
 .history {
   margin-top: 40px;
   padding-bottom: 20px;
@@ -339,18 +334,18 @@ input::-webkit-inner-spin-button {
   text-align: center;
   color: var(--text-secondary);
   padding: 50px 0;
-  background: rgba(15, 23, 42, 0.7);
-  border-radius: var(--radius);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   margin-top: 16px;
   border: 1px dashed var(--border);
   font-size: 1.05rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.05);
 }
 
 .history-card {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
   padding: 18px 20px;
-  box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   border: 1px solid var(--border);
   margin-bottom: 14px;
   transition: var(--transition);
@@ -360,8 +355,8 @@ input::-webkit-inner-spin-button {
 
 .history-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 16px rgba(0,0,0,0.45);
-  background: rgba(30, 41, 59, 0.95);
+  background: #f8fafc;
+  box-shadow: 0 12px 16px rgba(0,0,0,0.06);
 }
 
 .history-header-row {
@@ -386,8 +381,7 @@ input::-webkit-inner-spin-button {
 .history-total {
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--text-main);
-  background: linear-gradient(135deg, var(--primary), #60a5fa);
+  background: linear-gradient(90deg, #db2777, #2563eb);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -405,7 +399,8 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--text-main);
+  color: #1e293b;
+  font-weight: 600;
 }
 
 .history-row .label {
@@ -440,8 +435,8 @@ input::-webkit-inner-spin-button {
 }
 
 .history-breakdown-item span:last-child {
-  color: var(--text-main);
-  font-weight: 500;
+  color: #1e293b;
+  font-weight: 600;
 }
 
 .history-delete {
@@ -460,20 +455,6 @@ input::-webkit-inner-spin-button {
   transform: scale(1.1);
 }
 
-.history-tag {
-  background: rgba(15, 23, 42, 0.7);
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 0.85rem;
-  border: 1px solid var(--border);
-  transition: var(--transition);
-}
-
-.history-tag:hover {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: var(--text-secondary);
-}
-
 footer {
   text-align: center;
   margin-top: 40px;
@@ -485,25 +466,9 @@ footer {
   z-index: 2;
 }
 
-/* Анимация « pulse » для результата */
+/* ——— Анимации ——— */
 .pulse {
   animation: pulse-glow 1s ease-in-out;
-}
-
-/* ——— Логотип рядом с заголовком ——— */
-.logo-img {
-  width: 250px;              /* Увеличено */
-  height: 250px;             /* Чтобы сохранить пропорции и без cut-off */
-  object-fit: contain;
-  border-radius: 16px;
-  animation: float-logo 5s ease-in-out infinite;
-  background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.85));
-  padding: 8px;
-  margin-bottom: 12px;      /* Отступ под картинкой */
-  display: block;           /* Чтобы была по центру */
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 @keyframes pulse-glow {
@@ -512,7 +477,35 @@ footer {
   100% { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
 }
 
-/* ——— Header: перестроен для отдельного размещения ——— */
+@keyframes float-logo {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* ——— Логотип ——— */
+.logo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 18px;
+  animation: float-logo 5s ease-in-out infinite;
+  box-shadow: 0 6px 16px rgba(236, 72, 153, 0.35);
+  background: #f8fafc; /* ✅ БЫЛО: rgba(30,41,59,0.85) → ТЕПЕРЬ: светлый фон */
+  padding: 8px;
+  margin-bottom: 14px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 10px 24px rgba(236, 72, 153, 0.5);
+}
+
+/* ——— Header (переопределяем старый, если нужно) ——— */
 header {
   text-align: center;
   margin-bottom: 40px;
@@ -525,21 +518,11 @@ header > img {
   margin: 0 auto 14px auto;
 }
 
-h1 {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.03em;
-  background: linear-gradient(90deg, var(--primary), #60a5fa);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: block;
-}
-
-/* ——— Адаптивность для мобильных ——— */
+/* ——— Адаптивность ——— */
 @media (max-width: 480px) {
   .container { padding: 0 12px; }
+
+  /* Заголовок */
   h1 { font-size: 1.9rem; }
 
   /* Формы */
@@ -551,9 +534,10 @@ h1 {
   }
 
   .logo-img {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
     margin-bottom: 10px;
+    box-shadow: 0 6px 12px rgba(236, 72, 153, 0.25);
   }
 
   label {
@@ -568,43 +552,38 @@ h1 {
     width: 100%;
     box-sizing: border-box;
     padding: 10px 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
   }
 
-  /* Разбивка (breakdown) — вертикально на мобильных */
+  /* Breakdown */
   .breakdown {
     flex-direction: column;
   }
 
   .breakdown-item {
     width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   }
 
-  /* История — переписываем под мобильный */
+  /* История */
   .history-header-row {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
 
-  .history-time {
-    font-size: 0.85rem;
-  }
-
-  .history-total {
-    font-size: 1.2rem;
-  }
-
-  .history-details {
-    gap: 6px;
-  }
-
+  .history-time { font-size: 0.85rem; }
+  .history-total { font-size: 1.2rem; }
+  .history-details { gap: 6px; }
   .history-row {
     flex-direction: column;
     align-items: flex-start;
     font-size: 0.88rem;
   }
 
-  /* История: "электричество — амортизация — обслуживание" — в одну строку */
   .history-breakdown-row {
     display: flex;
     gap: 10px;
@@ -615,8 +594,8 @@ h1 {
   }
 
   .history-breakdown-item {
-    flex: 1;
-    min-width: 90px;
+    flex: 0 0 auto; /* ✅ БЫЛО: flex: 1 → НЕТ, он заставляет элементы растягиваться */
+    min-width: 70px; /* ✅ БЫЛО: 90px → Уменьшено до 70px для узких экранов */
     text-align: center;
   }
 
@@ -625,59 +604,14 @@ h1 {
     margin-top: 4px;
   }
 
-  .history-footer-row {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 6px;
-  }
-
-  /* Кнопки — шире */
+  /* Кнопки */
   .btn {
     padding: 14px 20px;
     font-size: 1rem;
   }
 
-  /* История: "электричество — амортизация — обслуживание" — в одну строку */
-  .history-breakdown-row {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    font-size: 0.78rem;
-    width: 100%;
-    padding: 4px 0;
-  }
-
-  .history-breakdown-item {
-    flex: 0 1 auto;
-    min-width: 85px;
-    text-align: left;
-    padding: 2px 4px;
-    border-radius: 6px;
-    background: rgba(15, 23, 42, 0.3);
-  }
-
-  .history-breakdown-item span:last-child {
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 60px;
-    display: inline-block;
-  }
-
-  .history-delete {
-    flex: 0 0 auto;
-    margin-left: auto;
-    margin-top: 4px;
-    font-size: 1.1rem;
-    padding: 2px 8px;
-  }
-
-  /* Оптимизируем отступы для маленьких экранов */
   .history-card {
     padding: 14px 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
   }
-
 }
