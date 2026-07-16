@@ -490,10 +490,51 @@ footer {
   animation: pulse-glow 1s ease-in-out;
 }
 
+/* ——— Логотип рядом с заголовком ——— */
+.logo-img {
+  width: 250px;              /* Увеличено */
+  height: 250px;             /* Чтобы сохранить пропорции и без cut-off */
+  object-fit: contain;
+  border-radius: 16px;
+  animation: float-logo 5s ease-in-out infinite;
+  background: linear-gradient(135deg, rgba(30,41,59,0.85), rgba(15,23,42,0.85));
+  padding: 8px;
+  margin-bottom: 12px;      /* Отступ под картинкой */
+  display: block;           /* Чтобы была по центру */
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 @keyframes pulse-glow {
   0% { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
   50% { text-shadow: 0 0 25px rgba(56, 189, 248, 0.9); }
   100% { text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+}
+
+/* ——— Header: перестроен для отдельного размещения ——— */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 24px 0;
+  position: relative;
+}
+
+header > img {
+  display: block;
+  margin: 0 auto 14px auto;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  background: linear-gradient(90deg, var(--primary), #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
 }
 
 /* ——— Адаптивность для мобильных ——— */
