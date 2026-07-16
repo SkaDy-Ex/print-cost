@@ -379,7 +379,7 @@ input::-webkit-inner-spin-button {
 }
 
 .history-total {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 800;
   background: linear-gradient(90deg, #db2777, #2563eb);
   -webkit-background-clip: text;
@@ -399,44 +399,58 @@ input::-webkit-inner-spin-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #1e293b;
-  font-weight: 600;
+  font-size: 0.92rem; /* ✅ Единый размер */
 }
 
 .history-row .label {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.92rem; /* ✅ Единый размер */
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .history-row .value {
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.92rem; /* ✅ Единый размер */
+  color: #1e293b;
 }
 
+/* ——— Единый размер для всех данных ——— */
 .history-breakdown-row {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: space-between;
   margin-top: 6px;
   padding-top: 8px;
   border-top: 1px solid rgba(55, 65, 81, 0.4);
   flex-wrap: wrap;
+  font-size: 0.92rem; /* ✅ Единый размер */
 }
 
 .history-breakdown-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
+  gap: 4px;
+  font-size: 0.92rem; /* ✅ Единый размер */
+  flex: 1;
+  min-width: 80px;
+  justify-content: center;
+  text-align: center;
 }
 
-.history-breakdown-item span:last-child {
-  color: #1e293b;
+.history-breakdown-item span {
+  font-size: 0.92rem; /* ✅ Единый размер */
+  font-weight: 500;
+}
+
+.history-breakdown-item span:first-child { /* иконка */
+  font-size: 0.95rem;
+}
+
+.history-breakdown-item span:last-child { /* значение */
   font-weight: 600;
+  color: #1e293b;
 }
 
 .history-delete {
@@ -570,26 +584,26 @@ header > img {
 
   /* История */
   .history-header-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    flex-wrap: nowrap; /* ✅ Всегда в одну строку */
+    gap: 12px;
+    align-items: center;
   }
 
   .history-time { font-size: 0.85rem; }
   .history-total { font-size: 1.2rem; }
   .history-details { gap: 6px; }
   .history-row {
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 0.88rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 0.85rem;
   }
 
   .history-breakdown-row {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     width: 100%;
   }
 
@@ -597,6 +611,14 @@ header > img {
     flex: 0 0 auto; /* ✅ БЫЛО: flex: 1 → НЕТ, он заставляет элементы растягиваться */
     min-width: 70px; /* ✅ БЫЛО: 90px → Уменьшено до 70px для узких экранов */
     text-align: center;
+  }
+
+  .history-breakdown-item span {
+    font-size: 0.85rem;
+  }
+
+  .history-breakdown-item span:last-child {
+    font-weight: 600;
   }
 
   .history-delete {
