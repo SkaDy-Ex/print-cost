@@ -570,6 +570,11 @@ header > img {
     border: 1px solid var(--border);
   }
 
+  input:invalid {
+    border: 2px solid var(--danger);
+    background: rgba(239, 68, 68, 0.05);
+  }
+
   /* Breakdown */
   .breakdown {
     flex-direction: column;
