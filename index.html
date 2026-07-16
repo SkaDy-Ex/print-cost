@@ -85,8 +85,15 @@
       // ❌ Запрет при 0 часов и 0 минут
       const h = parseFloat(document.getElementById('h').value) || 0;
       const m = parseFloat(document.getElementById('m').value) || 0;
+
+      if (m > 59) {
+        alert('⚠️ Минуты не могут быть больше 59! Укажите время корректно.');
+        document.getElementById('m').value = 59; // Автоматически подставим 59
+        return;
+      }
+      
       if (h === 0 && m === 0) {
-        alert('⚠️ Укажите время печати. Минимум: 1 час или 30 минут.');
+        alert('⚠️ Укажите время печати.');
         return;
       }
 
