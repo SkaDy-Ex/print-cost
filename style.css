@@ -550,6 +550,12 @@ h1 {
     gap: 6px;
   }
 
+  .logo-img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+
   label {
     width: 100%;
     flex: none;
